@@ -62,14 +62,19 @@
 <div id='map'></div>
 
 <script>
+//Used this example
+//https://www.mapbox.com/mapbox.js/example/v1.0.0/markers-with-multiple-filters/
+
 L.mapbox.accessToken = 'pk.eyJ1IjoiaWFubXVub3oiLCJhIjoiY2lrYWJhZTNpMGtzcnY5bTRoNmh2OWgzaiJ9.09ZwfnTOQCBmSuNOig-3gQ';
 
 
 var map = L.mapbox.map('map', 'mapbox.streets')
     .setView([38.90, -77.02], 12)
 
+//'layeradd' to keep the markers after filter
+//http://stackoverflow.com/questions/29018125/adding-geojson-feature-attribues-to-mapbox-popup 
 var markers = L.mapbox.featureLayer()
-    .loadURL('/locations.geojson')
+    .loadURL('locations.geojson')
     .on('layeradd', function(layer) {
            this.eachLayer(function(marker) {
              marker.bindPopup(
@@ -79,7 +84,7 @@ var markers = L.mapbox.featureLayer()
                "<b>"+ marker.feature.properties.Arrival +"<\/b> till <b>"+ marker.feature.properties.Departure +"<\/p> "
                ); 
            });
-       }) //http://stackoverflow.com/questions/29018125/adding-geojson-feature-attribues-to-mapbox-popup 
+       })
     .addTo(map);
 
 
